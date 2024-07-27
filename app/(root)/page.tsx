@@ -1,11 +1,19 @@
 import HeaderBox from "@/components/HeaderBox";
 import RightSidebar from "@/components/RightSidebar";
 import TotalBalanceBox from "@/components/TotalBalanceBox";
+import { getLoggedInUser } from "@/lib/actions/user.actions";
 import React from "react";
+import { redirect } from "next/navigation";
 
-const Home = () => {
+const Home = async () => {
 
-  const loggedIn = { firstName: "Adrian", lastName: "JSM", email: "contact@jsmatery.pro" }
+  const loggedIn = await getLoggedInUser();
+
+  if (!loggedIn) {
+    console.log("no user found redirecting to sign in")
+    redirect("/sign-in");
+  }
+
   return (
     <section className="home">
       <div className="home-content">
@@ -13,7 +21,7 @@ const Home = () => {
           <HeaderBox
             type="greeting"
             title="Welcome"
-            user={loggedIn.firstName || "Guest"}
+            user={loggedIn?.name || "Guest"}
             subtext="Access and manager your account and transactions efficiently"
           />
 
