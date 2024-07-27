@@ -9,11 +9,15 @@ import { sessionName } from "@/constants/appwrite";
 export const signIn = async ({ email, password }: signInProps) => {
   try {
     const { account } = await createAdminClient();
-    const response = await account.createEmailPasswordSession(email, password);
+    const session = await account.createEmailPasswordSession(email, password);
+    cookies().set(sessionName, session.secret, {
+      path: "/",
+      httpOnly: true,
+      sameSite: "strict",
+      secure: true,
+    });
 
-    console.log("use logged in on server", account);
-
-    return parseStringify(response);
+    return parseStringify(session);
   } catch (error) {
     console.error("Error", error);
   }
