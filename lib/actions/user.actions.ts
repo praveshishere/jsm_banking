@@ -53,7 +53,20 @@ export async function getLoggedInUser(): Promise<Models.User<Models.Preferences>
 
     return parseStringify(user);
   } catch (error) {
-    console.log(error);
+    console.error("Error", error);
+    return null;
+  }
+}
+
+
+export const logOut = async () => {
+  try {
+    const { account } = await createSessionClient();
+    cookies().delete(sessionName);
+
+    await account.deleteSession("current");
+  } catch (error) {
+    console.error("Error", error);
     return null;
   }
 }
