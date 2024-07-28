@@ -102,6 +102,7 @@ const SignIn = () => {
                   formSchema={signInSchema}
                   name="password"
                   label="Password"
+                  type="password"
                   placeholder="Enter your password"
                 />
 
