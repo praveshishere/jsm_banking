@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { signIn } from "@/lib/actions/user.actions";
+import PlaidLink from "@/components/PlaidLink";
 
 const SignIn = () => {
   const [user, setUser] = useState(null);
@@ -82,7 +83,9 @@ const SignIn = () => {
           </div>
         </header>
         {user ? (
-          <div className="flex flex-col gap-4">{/* PLainLink */}</div>
+          <div className="flex flex-col gap-4">
+            <PlaidLink user={user} variant="primary" />
+          </div>
         ) : (
           <>
             <Form {...form}>
